@@ -1,7 +1,25 @@
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import classes from '../../styles/WordSummary.module.css';
+import Link from 'next/link'
+import axios from 'axios';
 
 export default function WordSummary({ word }) {
+  const [comments, setComments] = useState(0);
+
+  useEffect(() => {
+    async function fetchCommentNums() {
+      const res = await axios.post('/api/count_comments', {
+        id: word.id
+      });
+      
+      const { count } = res.data;
+
+      setComments(count);
+    }
+
+    fetchCommentNums();
+  }, [comments]);
+
   return (
     <>
       <div className={classes.WordSummary}>
@@ -15,7 +33,7 @@ export default function WordSummary({ word }) {
             <Link href={`/word/${word.title}/${word.id}`}>
               <span>{word.title}</span>
             </Link>
-            <div>댓글 {0}개</div>
+            <div>댓글 {comments}개</div>
             <div className='created_at'>{word.created_at}</div>
           </div>
           <div className={classes.details_body}>
