@@ -1,19 +1,24 @@
-import { connection } from "../../config/db";
+import { connect } from "../../config/db";
 
+/**
+ * @description POST /api/count_likes
+ */
 export default async function handler(req, res) {
   try {
-    // like 못 받은 글도 최소 1 개가 뜨는 문제 해결 안 됨.
+    const word_id = req.body.id;
     const q = `
     select 
       count(*) as likes 
-    from words 
-    inner join word_likes 
-      on words.id = word_likes.word_id 
-    group by words.id`;
-    
-    
+    from word_likes
+    where word_id = ?
+    `;
+    const query = await connect().query(q, [word_id]);
+
+    return res.status(200).json({ likeNums: query[0][0].likes });
   } 
   catch (error) {
-    
+    console.error(error);
   }
+
+  res.status(404).json({ success: false });
 }

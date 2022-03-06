@@ -5,16 +5,22 @@ import axios from 'axios';
 
 export default function WordSummary({ word }) {
   const [comments, setComments] = useState(0);
+  const [likes, setLikes] = useState(0);
 
   useEffect(() => {
     async function fetchCommentNums() {
-      const res = await axios.post('/api/count_comments', {
+      const numOfComments = await axios.post('/api/count_comments', {
         id: word.id
       });
-      
-      const { count } = res.data;
+      const numOfLikes = await axios.post('/api/count_likes', {
+        id: word.id
+      });
+      const { commentNums } = numOfComments.data;
+      const { likeNums } = numOfLikes.data;
 
-      setComments(count);
+
+      setComments(commentNums);
+      setLikes(likeNums);
     }
 
     fetchCommentNums();
@@ -25,7 +31,7 @@ export default function WordSummary({ word }) {
       <div className={classes.WordSummary}>
         <div className={classes.votes}>
           <img src='../images/arrow-up.svg' />
-          <span>{0}</span>
+          <span>{likes}</span>
           <img src='../images/arrow-down.svg' />
         </div>
         <div className={classes.details}>
