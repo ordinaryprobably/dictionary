@@ -15,16 +15,13 @@ export default function WordSummary({ word }) {
       const numOfLikes = await axios.post('/api/count_likes', {
         id: word.id
       });
-      const { commentNums } = numOfComments.data;
-      const { likeNums } = numOfLikes.data;
 
-
-      setComments(commentNums);
-      setLikes(likeNums);
+      setComments(numOfComments.data.count);
+      setLikes(numOfLikes.data.count);
     }
 
     fetchCommentNums();
-  }, [comments]);
+  }, []);
 
   return (
     <>

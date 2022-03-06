@@ -1,33 +1,33 @@
-import { useRouter } from "next/router"
 import Word from "../../../../Components/Words/Word";
-import { connect } from "../../../../config/db";
+import prisma from "../../../../lib/prisma";
+
 
 export default function WordIdPage({ data }) {
-  const router = useRouter();
-
   return (
-    <div>
-      <h1>This Page is {`/word/${router.query.wordName}/${router.query.wordId}`}</h1>
-      <Word word={data}/>
-    </div>  
+    <Word word={data}/>
   )
 }
 
 export async function getServerSideProps(context) {
-  const q = `
-  select 
-    words.id,
-    words.title,
-    words.meaning
-  from words
-  where words.id = ?;
-  `;
-  const query = await connect().query(q, [context.params.wordId]);
-  const data = query[0][0];
+  const word = await prisma.word.findUnique({
+    where: {
+      id: Number(context.params.wordId)
+    }
+  });
 
   return {
     props: {
-      data
+      data: JSON.parse(JSON.stringify(word))
     }
   }
 }
+  // const q = `
+  // select 
+  //   words.id,
+  //   words.title,
+  //   words.meaning
+  // from words
+  // where words.id = ?;
+  // `;
+  // const query = await connect().query(q, [context.params.wordId]);
+  // const data = query[0][0];

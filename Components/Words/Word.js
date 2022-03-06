@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Comment from "./Comment";
+import CommentForm from "./CommentForm";
 
 export default function Word({ word }) {
   const [likes, setLikes] = useState(0);
@@ -10,13 +11,13 @@ export default function Word({ word }) {
     async function fetcher() {
       const likes = await axios.post('/api/count_likes', { id: word.id });
       const comments = await axios.get(`/api/comments/${word.id}`);
-      
-      setLikes(likes.data.likeNums);
-      setComments(comments.data.comments);
+
+      setLikes(likes.data.count);
+      setComments(comments.data.count);
     }
 
     fetcher();
-  }, []);
+  }, [likes, comments]);
   
   return (
     <div>
@@ -38,10 +39,11 @@ export default function Word({ word }) {
       </div>
       <hr/>
       <div>
-        <span>댓글 4개</span>
+        <span>댓글 {comments.length || 0}개</span>
         {comments.map(comment => (
           <Comment data={comment} />
         ))}
+        <CommentForm wordId={word.id}/>
       </div>
     </div>
   );
