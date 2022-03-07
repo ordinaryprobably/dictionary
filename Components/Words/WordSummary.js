@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
-import classes from '../../styles/WordSummary.module.css';
 import Link from 'next/link'
 import axios from 'axios';
+import { GreyHr } from '../../StyledComponents/elements/Hr';
+import Vote from '../../StyledComponents/blocks/Vote';
+import WordCard from '../../StyledComponents/blocks/WordCard';
+import Flag from '../../StyledComponents/blocks/Flag';
+import Definition from '../../StyledComponents/blocks/Definition';
 
 export default function WordSummary({ word }) {
   const [comments, setComments] = useState(0);
@@ -25,31 +29,32 @@ export default function WordSummary({ word }) {
 
   return (
     <>
-      <div className={classes.WordSummary}>
-        <div className={classes.votes}>
+      <WordCard>
+        <Vote>
           <img src='../images/arrow-up.svg' />
-          <span>{likes}</span>
+          <Vote.Count>{likes}</Vote.Count>
           <img src='../images/arrow-down.svg' />
-        </div>
-        <div className={classes.details}>
-          <div className={classes.details_head}>
+        </Vote>
+        <WordCard.Word>
+          <WordCard.Header>
             <Link href={`/word/${word.title}/${word.id}`}>
-              <span>{word.title}</span>
+              <WordCard.Title>{word.title}</WordCard.Title>
             </Link>
-            <div>댓글 {comments}개</div>
-            <div className='created_at'>{word.created_at}</div>
-          </div>
-          <div className={classes.details_body}>
-            <p>{word.meaning}</p>
-            <div className={classes.details_reports}>
-              <span>이 해석을 신고하기</span>
-              <span>번역하기</span>
-              <span>저장하기</span>
+            <Flag.Box variant='comment'>
+              <Flag.Text variant='comment'>댓글 {comments}개</Flag.Text>
+            </Flag.Box>
+          </WordCard.Header>
+          <WordCard.Meaning>
+            <Definition.Text>{word.meaning}</Definition.Text>
+            <div>
+              <Definition.Option>이 해석을 신고하기</Definition.Option>
+              <Definition.Option>번역하기</Definition.Option>
+              <Definition.Option>저장하기</Definition.Option>
             </div>
-          </div>
-        </div>
-      </div>
-      <hr className={classes.hr}/>
+          </WordCard.Meaning>
+        </WordCard.Word>
+      </WordCard>
+      <GreyHr/>
     </>
   )
 }

@@ -10,14 +10,9 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 .layout-main {
-  margin: 10px 20px
+  margin: 10px 20px;
 }
 
 @media screen and (max-width: 768px) {
-
 }

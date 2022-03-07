@@ -20,7 +20,7 @@ export default async function handler(req, res) {
         }
       }
     })
-    console.log(comments)
+
     return res.status(200).json({ count: comments });
   } catch (error) {
     console.error(error)

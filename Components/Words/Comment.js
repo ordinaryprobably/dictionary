@@ -1,3 +1,7 @@
+import Comments from "../../StyledComponents/blocks/Comment";
+import { SmallP } from "../../StyledComponents/elements/Paragraph";
+
+
 export default function Comment({ data }) {
   const date = new Date(data.createdAt);
   const year = date.getFullYear();
@@ -5,12 +9,12 @@ export default function Comment({ data }) {
   const day = date.getDate();
   
   return (
-    <div>
-      <div>
-        <span>{data.author.name}</span>
-        <span>{year}/{month}/{day}</span>
-      </div>
-      <p>{data.content}</p>
-    </div>
+    <Comments.Box>
+      <Comments.Header>
+        <Comments.HeaderText variant='name'>{data.author.name}</Comments.HeaderText>
+        <Comments.HeaderText variant='date'>{year}/{month}/{day}</Comments.HeaderText>
+      </Comments.Header>
+      <SmallP>{data.content}</SmallP>
+    </Comments.Box>
   )
 }
