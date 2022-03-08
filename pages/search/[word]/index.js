@@ -3,8 +3,9 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import WordSummary from "../../../Components/Words/WordSummary";
 import { BlueHeader } from "../../../StyledComponents/elements/Header";
+import { Line } from "../../../StyledComponents/elements/Hr";
+import { LightBlueHeader, Span } from "../../../StyledComponents/elements/Span";
 
-// 현재, 한 번의 요청으로 DB 에서 3 번 요청받는 문제가 있음.
 export default function SearchResults() {
   const [result, setResult] = useState([]);
   const router = useRouter();
@@ -23,12 +24,26 @@ export default function SearchResults() {
     }
   }, [router]);
 
-  return (
-    <div>
-      <BlueHeader>검색어: {router.query.word}</BlueHeader>
-      {result.map(word => (
-        <WordSummary word={word} key={word.id}/>
-      ))}
-    </div>
-  )
+  if(result.length !== 0) {
+    return (
+      <>
+        <BlueHeader marginBot={20}>
+          <LightBlueHeader>검색어:</LightBlueHeader> {router.query.word}
+        </BlueHeader>
+        <Line/>
+        {result.map(word => (
+          <WordSummary word={word} key={word.id}/>
+        ))}
+      </>
+    )
+  } else {
+    return (
+      <>
+        <BlueHeader>
+          <LightBlueHeader>검색어:</LightBlueHeader> {router.query.word}
+        </BlueHeader>
+        <Span>검색 결과가 없습니다.</Span>
+      </>
+    )
+  }
 }
