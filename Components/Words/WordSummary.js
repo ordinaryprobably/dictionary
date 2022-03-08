@@ -1,38 +1,20 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link'
 import axios from 'axios';
-import { GreyHr } from '../../StyledComponents/elements/Hr';
+import { Line } from '../../StyledComponents/elements/Hr';
 import Vote from '../../StyledComponents/blocks/Vote';
 import WordCard from '../../StyledComponents/blocks/WordCard';
 import Flag from '../../StyledComponents/blocks/Flag';
 import Definition from '../../StyledComponents/blocks/Definition';
 
 export default function WordSummary({ word }) {
-  const [comments, setComments] = useState(0);
-  const [likes, setLikes] = useState(0);
-
-  useEffect(() => {
-    async function fetchCommentNums() {
-      const numOfComments = await axios.post('/api/count_comments', {
-        id: word.id
-      });
-      const numOfLikes = await axios.post('/api/count_likes', {
-        id: word.id
-      });
-
-      setComments(numOfComments.data.count);
-      setLikes(numOfLikes.data.count);
-    }
-
-    fetchCommentNums();
-  }, []);
 
   return (
     <>
       <WordCard>
         <Vote>
           <img src='../images/arrow-up.svg' />
-          <Vote.Count>{likes}</Vote.Count>
+          <Vote.Count>{word._count.WordLike}</Vote.Count>
           <img src='../images/arrow-down.svg' />
         </Vote>
         <WordCard.Word>
@@ -41,7 +23,7 @@ export default function WordSummary({ word }) {
               <WordCard.Title>{word.title}</WordCard.Title>
             </Link>
             <Flag.Box variant='comment'>
-              <Flag.Text variant='comment'>댓글 {comments}개</Flag.Text>
+              <Flag.Text variant='comment'>댓글 {word._count.Comment}개</Flag.Text>
             </Flag.Box>
           </WordCard.Header>
           <WordCard.Meaning>
@@ -54,7 +36,7 @@ export default function WordSummary({ word }) {
           </WordCard.Meaning>
         </WordCard.Word>
       </WordCard>
-      <GreyHr/>
+      <Line/>
     </>
   )
 }

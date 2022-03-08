@@ -1,4 +1,4 @@
-.WordSummary {
+/* .WordSummary {
   display: flex;
   padding: 20px 0;
 }
@@ -48,7 +48,7 @@
 
 .details_body p {
   margin: 0 0 10px 0;
-  /* font-size: 0.93rem; */
+
   font-size: 15px;
 }
 
@@ -70,4 +70,4 @@
   height: 1px;
   border: none;
   margin: 0;
-}
+} */

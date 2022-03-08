@@ -1,10 +1,11 @@
+import { WordProvider } from "../../../../Components/Contexts/word.context";
 import Word from "../../../../Components/Words/Word";
 import prisma from "../../../../lib/prisma";
 
 
 export default function WordIdPage({ data }) {
   return (
-    <Word word={data}/>
+    <Word data={data}/>
   )
 }
 

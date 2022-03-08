@@ -1,0 +1,10 @@
+<svg id="그룹_33" data-name="그룹 33" xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31">
+  <g id="검색아이콘" transform="translate(7 6)">
+    <g id="타원_1" data-name="타원 1" fill="none" stroke="#767676" stroke-linecap="round" stroke-width="2">
+      <circle cx="7" cy="7" r="7" stroke="none"/>
+      <circle cx="7" cy="7" r="6" fill="none"/>
+    </g>
+    <path id="패스_2" data-name="패스 2" d="M0,0,6.379,6.733" transform="translate(11.075 11.396)" fill="none" stroke="#767676" stroke-linecap="round" stroke-width="2"/>
+  </g>
+  <rect id="사각형_12" data-name="사각형 12" width="31" height="31" fill="none"/>
+</svg>

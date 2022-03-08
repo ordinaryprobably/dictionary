@@ -1,11 +1,24 @@
-import classes from '../../styles/Header.module.css'
+import { HearderLine } from '../../StyledComponents/elements/Hr';
+import { BlueHeader, LightBlueHeader } from '../../StyledComponents/elements/Header';
+import { useSession } from "next-auth/react";
 
 export default function Header() {
-  return (
-    <div className={classes.Header}>
-      <h1 className={classes.greeting}>안녕,</h1>
-      <h1 className={classes.nickname}>Ordinary Probably</h1>
-      <hr className={classes.hr}/>
-    </div>
-  )
+  const { data: session, status } = useSession();
+
+  if(status === 'authenticated') {
+    return (
+      <div>
+        <BlueHeader>안녕,</BlueHeader>
+        <LightBlueHeader>{session.user.name}</LightBlueHeader>
+        <HearderLine />
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <BlueHeader>Dictionary</BlueHeader>
+        <HearderLine />
+      </div>
+    )
+  }
 }

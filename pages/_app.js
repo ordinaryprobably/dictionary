@@ -1,6 +1,7 @@
 import Layout from '../Components/Layout/Layout'
 import { SessionProvider } from "next-auth/react"
 import '../styles/globals.css'
+import { WordProvider } from '../Components/Contexts/word.context'
 
 export default function App({
   Component,
@@ -8,9 +9,11 @@ export default function App({
 }) {
   return (
     <SessionProvider session={session}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <WordProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </WordProvider>
     </SessionProvider>
   )
 }

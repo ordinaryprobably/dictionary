@@ -19,7 +19,7 @@ export default async function handler(req, res) {
         wordId: wordId,
         authorId: user.id
       }
-    })
+    });
   
     return res.status(200).json(postComment);
   } catch (error) {
