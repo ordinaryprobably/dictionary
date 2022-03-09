@@ -1,12 +1,12 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
 import { useSession } from 'next-auth/react';
 import axios from "axios";
-import { CommentInput } from "../../StyledComponents/blocks/CommentForm/Input";
-import { CommentFormDiv } from "../../StyledComponents/blocks/CommentForm";
 import CommentFormBox from "../../StyledComponents/blocks/CommentForm";
+import { UserIdContext } from '../Contexts/userId.context';
 
 export default function CommentForm({ wordId }) {
   const { data: session, status } = useSession();
+  const userId = useContext(UserIdContext);
   const formRef = useRef();
   const commentRef = useRef();
 
@@ -16,7 +16,7 @@ export default function CommentForm({ wordId }) {
     const enteredComment = commentRef.current.value;
     const postComment = await axios.post('/api/post-comment', {
       comment: enteredComment,
-      userEmail: session.user.email,
+      userId: userId,
       wordId: wordId
     });
 

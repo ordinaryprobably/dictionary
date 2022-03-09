@@ -4,20 +4,12 @@ export default async (req, res) => {
   let result;
 
   try {
-    const { userEmail, wordId } = req.body;
-    const user = await prisma.user.findUnique({
-      where: {
-        email: userEmail
-      },
-      select: {
-        id: true
-      }
-    });
+    const { wordId, userId } = req.body;
 
     const like = await prisma.wordLike.create({
       data: {
         wordId: wordId,
-        authorId: user.id
+        authorId: userId
       }
     })
 

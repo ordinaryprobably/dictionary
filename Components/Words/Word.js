@@ -32,7 +32,6 @@ export default function Word({ data }) {
         value: userId
       });
     }
-    console.log(userId)
     
     fetcher();
   }, []);

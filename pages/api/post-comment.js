@@ -4,22 +4,13 @@ export default async function handler(req, res) {
   let result;
 
   try {
-    const { comment, userEmail, wordId } = req.body;
-  
-    const user = await prisma.user.findUnique({
-      where: {
-        email: userEmail
-      },
-      select: {
-        id: true
-      }
-    });
+    const { comment, userId, wordId } = req.body;
   
     const postComment = await prisma.comment.create({
       data: {
         content: comment,
         wordId: wordId,
-        authorId: user.id
+        authorId: userId
       }
     });
   

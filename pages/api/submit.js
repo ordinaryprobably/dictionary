@@ -4,22 +4,13 @@ export default async (req, res) => {
   let result;
 
   try {
-    const { title, definition, email } = req.body;
-  
-    const user = await prisma.user.findUnique({
-      where: {
-        email: email
-      },
-      select: {
-        id: true
-      }
-    });
+    const { title, definition, userId } = req.body;
   
     const submission = await prisma.word.create({
       data: {
         title: title,
         meaning: definition,
-        authorId: user.id
+        authorId: userId
       }
     });
     

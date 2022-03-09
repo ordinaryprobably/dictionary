@@ -18,8 +18,8 @@ export default function WordSummary({ word }) {
   const handleLike = async () => {
     if(session) {
       const result = await axios.post('/api/like-word', {
-        userEmail: session.user.email,
-        wordId: word.id
+        wordId: word.id,
+        userId: userId
       })
       
       if(result.data.success) {

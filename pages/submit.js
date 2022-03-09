@@ -1,15 +1,17 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import SubmitBox from "../StyledComponents/blocks/SubmitForm";
 import { BlueHeader } from "../StyledComponents/elements/Header";
 import { Line } from "../StyledComponents/elements/Hr";
 import { SuccessText, WarningText } from "../StyledComponents/elements/Span";
+import { UserIdContext } from '../Components/Contexts/userId.context';
 
 export default function SubmitPage() {
   const [successMsg, setSuccessMsg] = useState(false);
   const { data: session } = useSession();
+  const userId = useContext(UserIdContext)
   const router = useRouter();
   const formRef = useRef();
   const titleRef = useRef();
@@ -23,7 +25,7 @@ export default function SubmitPage() {
     const result = await axios.post('/api/submit', {
       title: enteredTitle,
       definition: enteredDef,
-      email: session.user.email
+      userId: userId
     })
 
     formRef.current.reset();
