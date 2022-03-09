@@ -80,34 +80,32 @@ export default function SubmitPage() {
         <BlueHeader marginBot={20}>단어 등록</BlueHeader>
         <Line/>
         <SubmitBox>
-          <form ref={formRef} onSubmit={handleSubmit}>
-            <SubmitBox.Guide>
-              단어
-            </SubmitBox.Guide>
-            <SubmitBox.Title
-              type='text'
-              name='title'
-              ref={titleRef}
-              autoComplete='off'
-              placeholder='단어를 입력하세요.'
-              disabled
-            />
-            <SubmitBox.Guide>
-              의미
-            </SubmitBox.Guide>
-            <SubmitBox.Define
-              type='text'
-              name='definition'
-              ref={definitionRef}
-              autoComplete='off'
-              placeholder='단어의 의미를 입력하세요.'
-              disabled
-            />
-            <SubmitBox.Btn disabled={true}>
-              등록하기
-            </SubmitBox.Btn>
-            <WarningText>로그인이 필요합니다.</WarningText>
-          </form>
+          <SubmitBox.Guide>
+            단어
+          </SubmitBox.Guide>
+          <SubmitBox.Title
+            type='text'
+            name='title'
+            ref={titleRef}
+            autoComplete='off'
+            placeholder='단어를 입력하세요.'
+            disabled
+          />
+          <SubmitBox.Guide>
+            의미
+          </SubmitBox.Guide>
+          <SubmitBox.Define
+            type='text'
+            name='definition'
+            ref={definitionRef}
+            autoComplete='off'
+            placeholder='단어의 의미를 입력하세요.'
+            disabled
+          />
+          <SubmitBox.Btn disabled={true}>
+            등록하기
+          </SubmitBox.Btn>
+          <WarningText>로그인이 필요합니다.</WarningText>
         </SubmitBox>
       </>
     )

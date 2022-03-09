@@ -31,7 +31,9 @@ export default function Navbar() {
             <Link href='/api/auth/signin'>
               <a onClick={e => {
                 e.preventDefault();
-                signIn('github');
+                signIn('github', {
+                  callbackUrl: '/'
+                });
               }}>Sign in</a>
             </Link>
           </div>)

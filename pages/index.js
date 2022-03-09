@@ -1,33 +1,45 @@
-import { useContext, useEffect } from 'react';
-import { DispatchContext, WordContext } from '../Components/Contexts/word.context';
+import { getSession } from 'next-auth/react';
+import { useContext, useEffect, useState } from 'react';
+import { DispatchIdContext } from '../Components/Contexts/userId.context';
 import Header from '../Components/Layout/Header';
 import HomeWordList from '../Components/Words/HomeWordList';
 import prisma from '../lib/prisma';
 
-export default function Home({ posts }) {
-  const word = useContext(WordContext);
-  const dispatch = useContext(DispatchContext);
+export default function Home({ posts, userId }) {
+  const [words, setWords] = useState([]);
+  const dispatchId = useContext(DispatchIdContext);
 
   useEffect(() => {
-    dispatch({
-      type: 'DELETE_ALL',
-    });
-    dispatch({
+    dispatchId({
       type: 'ADD',
-      value: posts
-    })
+      value: userId
+    });
+    setWords(posts);
   }, []);
 
   return (
     <>
       <Header />
-      <HomeWordList words={word} />
+      <HomeWordList words={words} />
     </>
   )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  let userId = null;
+  
   try {
+    if(session) {
+      const user = await prisma.user.findUnique({
+        where: {
+          email: session.user.email
+        }
+      })
+
+      userId = user.id;
+    }
+
     const posts = await prisma.word.findMany({
       select: {
         id: true,
@@ -39,12 +51,19 @@ export async function getServerSideProps() {
             WordLike: true
           },
         },
+        WordLike: {
+          select: {
+            authorId: true,
+            wordId: true
+          }
+        }
       },
     });
 
     return {
       props: {
-        posts: JSON.parse(JSON.stringify(posts))
+        posts: JSON.parse(JSON.stringify(posts)),
+        userId
       }
     }
   } catch (error) {

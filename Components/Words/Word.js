@@ -7,20 +7,33 @@ import { BlueHeader } from "../../StyledComponents/elements/Header";
 import { Line } from "../../StyledComponents/elements/Hr";
 import Flag from "../../StyledComponents/blocks/Flag";
 import Definition from "../../StyledComponents/blocks/Definition";
+import { UserIdContext, DispatchIdContext } from "../Contexts/userId.context";
+import { useSession } from "next-auth/react";
 
 export default function Word({ data }) {
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState([]);
-
+  const userId = useContext(UserIdContext);
+  const dispatchId = useContext(DispatchIdContext);
+  const { data: session } = useSession();
+  
   useEffect(() => {
     async function fetcher() {
       const likes = await axios.post('/api/count_likes', { id: data.id });
       const comments = await axios.get(`/api/comments/${data.id}`);
-
+      
       setLikes(likes.data.data);
       setComments(comments.data.data);
     }
-
+    
+    if(session) {
+      dispatchId({
+        type: 'ADD',
+        value: userId
+      });
+    }
+    console.log(userId)
+    
     fetcher();
   }, []);
   

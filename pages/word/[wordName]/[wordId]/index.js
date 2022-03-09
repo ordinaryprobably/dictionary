@@ -1,4 +1,3 @@
-import { WordProvider } from "../../../../Components/Contexts/word.context";
 import Word from "../../../../Components/Words/Word";
 import prisma from "../../../../lib/prisma";
 
@@ -22,13 +21,3 @@ export async function getServerSideProps(context) {
     }
   }
 }
-  // const q = `
-  // select 
-  //   words.id,
-  //   words.title,
-  //   words.meaning
-  // from words
-  // where words.id = ?;
-  // `;
-  // const query = await connect().query(q, [context.params.wordId]);
-  // const data = query[0][0];

@@ -1,19 +1,47 @@
-import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link'
-import axios from 'axios';
 import { Line } from '../../StyledComponents/elements/Hr';
 import Vote from '../../StyledComponents/blocks/Vote';
 import WordCard from '../../StyledComponents/blocks/WordCard';
 import Flag from '../../StyledComponents/blocks/Flag';
 import Definition from '../../StyledComponents/blocks/Definition';
+import axios from 'axios';
+import { useState, useContext, useEffect } from 'react';
+import { UserIdContext } from '../Contexts/userId.context';
 
 export default function WordSummary({ word }) {
+  const [liked, setLiked] = useState(false);
+  const [fetchLike, setFetchLike] = useState(false);
+  const { data: session } = useSession();
+  const userId = useContext(UserIdContext);
 
+  const handleLike = async () => {
+    if(session) {
+      const result = await axios.post('/api/like-word', {
+        userEmail: session.user.email,
+        wordId: word.id
+      })
+      
+      if(result.data.success) {
+        setFetchLike(true);
+      }
+    }
+  }
+
+  useEffect(() => {
+    setLiked(
+      word.WordLike.find(like => like.authorId == userId)
+    );
+  }, [fetchLike]);
+  
   return (
     <>
       <WordCard>
         <Vote>
-          <img src='../images/arrow-up.svg' />
+          <img 
+            src={liked || fetchLike ? '../images/blue-arrow.svg' : '../images/arrow-up.svg'} 
+            onClick={handleLike}
+          />
           <Vote.Count>{word._count.WordLike}</Vote.Count>
           <img src='../images/arrow-down.svg' />
         </Vote>
