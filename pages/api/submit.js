@@ -1,6 +1,8 @@
 import prisma from '../../lib/prisma'
 
 export default async (req, res) => {
+  let result;
+
   try {
     const { title, definition, email } = req.body;
   
@@ -21,10 +23,12 @@ export default async (req, res) => {
       }
     });
     
-    return res.status(200).json({ success: true });
+    result = true;
   } catch (error) {
     console.error(error);
+    
+    result = false;
   }
 
-  return res.status(400).json({ success: false });
+  return res.status(400).json({ success: result });
 }

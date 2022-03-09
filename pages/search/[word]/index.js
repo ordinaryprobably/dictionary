@@ -16,10 +16,11 @@ export default function SearchResults() {
         keyword: router.query.word
       });
 
-      setResult(results.data);
+      setResult(results.data.data);
     }
 
     if(router && router.query) {
+
       fetcher();
     }
   }, [router]);

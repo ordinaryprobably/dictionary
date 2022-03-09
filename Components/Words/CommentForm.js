@@ -23,19 +23,36 @@ export default function CommentForm({ wordId }) {
     formRef.current.reset();
   }
 
-  return (
-    <CommentFormBox>
-      <form onSubmit={handleSubmit} ref={formRef}>
+  if(!session) {
+    return (
+      <CommentFormBox disabled={true}>
         <CommentFormBox.Input 
           type='text'
           name='comment'
           ref={commentRef}
           autoComplete='off'
           placeholder="댓글을 입력해 주세요."
-          required
+          disabled
         />
-        <button>완료</button>
-      </form>
-    </CommentFormBox>
-  )
+        <button disabled>완료</button>
+      </CommentFormBox>
+    )
+  } else {
+    return (
+      <CommentFormBox>
+        <form onSubmit={handleSubmit} ref={formRef}>
+          <CommentFormBox.Input 
+            type='text'
+            name='comment'
+            ref={commentRef}
+            autoComplete='off'
+            placeholder="댓글을 입력해 주세요."
+            required
+          />
+          <button>완료</button>
+        </form>
+      </CommentFormBox>
+    )
+  }
+
 }

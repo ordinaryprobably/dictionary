@@ -7,7 +7,6 @@ import { BlueHeader } from "../../StyledComponents/elements/Header";
 import { Line } from "../../StyledComponents/elements/Hr";
 import Flag from "../../StyledComponents/blocks/Flag";
 import Definition from "../../StyledComponents/blocks/Definition";
-import { WordContext } from "../Contexts/word.context";
 
 export default function Word({ data }) {
   const [likes, setLikes] = useState(0);
@@ -18,12 +17,12 @@ export default function Word({ data }) {
       const likes = await axios.post('/api/count_likes', { id: data.id });
       const comments = await axios.get(`/api/comments/${data.id}`);
 
-      setLikes(likes.data.count);
-      setComments(comments.data.count);
+      setLikes(likes.data.data);
+      setComments(comments.data.data);
     }
 
     fetcher();
-  }, [likes, comments]);
+  }, []);
   
   return (
     <div>
