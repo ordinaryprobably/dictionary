@@ -38,6 +38,12 @@ export default async function handler(req, res) {
               WordLike: true
             },
           },
+          WordLike: {
+            select: {
+              authorId: true,
+              wordId: true
+            }
+          },
         },
         orderBy: {
           title: 'desc'

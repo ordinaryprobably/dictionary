@@ -1,9 +1,9 @@
-import { getSession } from 'next-auth/react';
-import { useContext, useEffect, useState } from 'react';
-import { DispatchIdContext } from '../Components/Contexts/userId.context';
-import Header from '../Components/Layout/Header';
-import HomeWordList from '../Components/Words/HomeWordList';
-import prisma from '../lib/prisma';
+import { getSession } from "next-auth/react";
+import { useContext, useEffect, useState } from "react";
+import { DispatchIdContext } from "../Components/Contexts/userId.context";
+import Header from "../Components/Layout/Header";
+import HomeWordList from "../Components/Words/HomeWordList";
+import prisma from "../lib/prisma";
 
 export default function Home({ posts, userId }) {
   const [words, setWords] = useState([]);
@@ -11,9 +11,10 @@ export default function Home({ posts, userId }) {
 
   useEffect(() => {
     dispatchId({
-      type: 'ADD',
-      value: userId
+      type: "ADD",
+      value: userId,
     });
+    localStorage.setItem("userId", userId);
     setWords(posts);
   }, []);
 
@@ -22,20 +23,20 @@ export default function Home({ posts, userId }) {
       <Header />
       <HomeWordList words={words} />
     </>
-  )
+  );
 }
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
   let userId = null;
-  
+
   try {
-    if(session) {
+    if (session) {
       const user = await prisma.user.findUnique({
         where: {
-          email: session.user.email
-        }
-      })
+          email: session.user.email,
+        },
+      });
 
       userId = user.id;
     }
@@ -48,25 +49,25 @@ export async function getServerSideProps(context) {
         _count: {
           select: {
             Comment: true,
-            WordLike: true
+            WordLike: true,
           },
         },
         WordLike: {
           select: {
             authorId: true,
-            wordId: true
-          }
-        }
+            wordId: true,
+          },
+        },
       },
     });
 
     return {
       props: {
         posts: JSON.parse(JSON.stringify(posts)),
-        userId
-      }
-    }
+        userId,
+      },
+    };
   } catch (error) {
     console.error(error);
   }
-};
+}
