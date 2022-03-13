@@ -5,7 +5,7 @@ export default async (req, res) => {
 
   try {
     const { wordId, userId, doLike } = req.body;
-    console.log(req.body);
+
     if (doLike) {
       const like = await prisma.wordLike.create({
         data: {
@@ -17,12 +17,6 @@ export default async (req, res) => {
       const unlike = await prisma.$queryRaw`
         delete from wordLike where wordId = ${wordId} && authorId = ${userId}
       `;
-      // const unlike = await prisma.wordLike.delete({
-      //   where: {
-      //     wordId: wordId,
-      //     authorId: userId,
-      //   },
-      // });
     }
 
     result = true;

@@ -20,5 +20,5 @@ export function useToggleLike(url, reqBody, initialState = false) {
     }
   };
 
-  return [like, toggleLike];
+  return [like, toggleLike, setLike];
 }

@@ -5,17 +5,17 @@ import Vote from "../../StyledComponents/blocks/Vote";
 import WordCard from "../../StyledComponents/blocks/WordCard";
 import Flag from "../../StyledComponents/blocks/Flag";
 import Definition from "../../StyledComponents/blocks/Definition";
-import axios from "axios";
 import { useState, useContext, useEffect } from "react";
 import { UserIdContext } from "../Contexts/userId.context";
 import { useToggleLike } from "../Hooks/useToggleLike";
 
 export default function WordSummary({ word }) {
-  const [liked, setLiked] = useState(false);
-  const [fetchLike, setFetchLike] = useState(false);
   const { data: session } = useSession();
-  const userId = useContext(UserIdContext);
-  const [like, toggleLike] = useToggleLike(
+  const userId =
+    useContext(UserIdContext) ||
+    (typeof window !== "undefined" && localStorage.getItem("userId"));
+  const [liked, setLiked] = useState(false);
+  const [like, toggleLike, setLike] = useToggleLike(
     `/api/like/${word.id}`,
     {
       wordId: word.id,
@@ -23,23 +23,18 @@ export default function WordSummary({ word }) {
     },
     liked
   );
-  console.log(word);
-  // const handleLike = async () => {
-  //   if (session) {
-  //     const result = await axios.post(`/api/like/${word.id}`, {
-  //       wordId: word.id,
-  //       userId: userId,
-  //     });
 
-  //     if (result.data.success) {
-  //       setFetchLike(true);
-  //     }
-  //   }
-  // };
+  const handleLike = () => {
+    if (session) {
+      toggleLike();
+      !like ? (word._count.WordLike += 1) : (word._count.WordLike -= 1);
+    }
+  };
 
   useEffect(() => {
     if (word.WordLike.length !== 0) {
       setLiked(word.WordLike.find((like) => like.authorId == userId));
+      setLike(word.WordLike.find((like) => like.authorId == userId));
     }
   }, []);
 
@@ -48,12 +43,8 @@ export default function WordSummary({ word }) {
       <WordCard>
         <Vote>
           <img
-            src={
-              liked || like
-                ? "../images/blue-arrow.svg"
-                : "../images/arrow-up.svg"
-            }
-            onClick={toggleLike}
+            src={like ? "../images/blue-arrow.svg" : "../images/arrow-up.svg"}
+            onClick={handleLike}
           />
           <Vote.Count>{word._count.WordLike}</Vote.Count>
           <img src="../images/arrow-down.svg" />
