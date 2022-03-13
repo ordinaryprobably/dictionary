@@ -3,7 +3,9 @@ import { useContext, useEffect, useState } from "react";
 import { DispatchIdContext } from "../Components/Contexts/userId.context";
 import Header from "../Components/Layout/Header";
 import HomeWordList from "../Components/Words/HomeWordList";
+import TodayWord from "../Components/Words/TodayWord";
 import prisma from "../lib/prisma";
+import { Line } from "../StyledComponents/elements/Hr";
 
 export default function Home({ posts, userId }) {
   const [words, setWords] = useState([]);
@@ -21,6 +23,8 @@ export default function Home({ posts, userId }) {
   return (
     <>
       <Header />
+      <TodayWord />
+      <Line />
       <HomeWordList words={words} />
     </>
   );

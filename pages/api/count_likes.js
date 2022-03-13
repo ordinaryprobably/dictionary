@@ -8,20 +8,20 @@ export default async function handler(req, res) {
     const { id } = req.body;
     data = await prisma.wordLike.count({
       where: {
-        wordId: id
-      }
-    })
+        wordId: id,
+      },
+    });
 
     result = true;
   } catch (error) {
     console.error(error);
-    
+
     result = false;
     data = 0;
   }
 
   return res.status(200).json({
     success: result,
-    data: data
+    data: data,
   });
 }
