@@ -20,13 +20,13 @@ export default async function handler(req, res) {
 
   try {
     const { keyword } = req.body;
-  
-    if(keyword) {
+
+    if (keyword) {
       data = await prisma.word.findMany({
         where: {
           title: {
-            contains: keyword
-          }
+            contains: keyword,
+          },
         },
         select: {
           id: true,
@@ -35,32 +35,38 @@ export default async function handler(req, res) {
           _count: {
             select: {
               Comment: true,
-              WordLike: true
+              WordLike: true,
             },
           },
           WordLike: {
             select: {
               authorId: true,
-              wordId: true
-            }
+              wordId: true,
+            },
+          },
+          Save: {
+            select: {
+              authorId: true,
+              wordId: true,
+            },
           },
         },
         orderBy: {
-          title: 'desc'
-        }
-      })
+          title: "desc",
+        },
+      });
     }
-      
+
     result = true;
   } catch (error) {
     console.error(error);
-    
+
     result = false;
     data = [];
-  } 
-  
+  }
+
   return res.status(200).json({
     success: result,
-    data: data
-  })
+    data: data,
+  });
 }

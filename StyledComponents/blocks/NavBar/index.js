@@ -12,6 +12,7 @@ export const NavBarBox = styled.div`
 export const NavBar = styled.div`
   display: flex;
   justify-content: space-around;
+  align-items: center;
   width: 100%;
   background-color: #efefef;
 `;

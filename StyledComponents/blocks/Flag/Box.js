@@ -30,11 +30,11 @@ export const ShiningFlag = styled.div`
     }
   }};
   background: #eee;
-  background: linear-gradient(110deg, #ececec 8%, #f7f7f7 18%, #ececec 33%);
+  background: linear-gradient(110deg, #ececec 8%, #fcfcfc 18%, #ececec 33%);
   border-radius: 5px;
   background-size: 200% 100%;
-  animation: 1.5s ${shine} cubic-bezier(0.4, 0, 1, 1) infinite;
-  animation-delay: 2s;
+  animation: 1.5s ${shine} cubic-bezier(0.86, 0.43, 0.75, 0.72) infinite;
+  animation-delay: 1s;
 `;
 
 export const FlagDiv = styled.div`

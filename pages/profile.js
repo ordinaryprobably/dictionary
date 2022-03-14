@@ -1,4 +1,6 @@
 import { getSession, useSession } from "next-auth/react";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
 import Submitted from "../Components/Words/Submitted";
 import ProfileBox from "../StyledComponents/blocks/Profile";
 import { BlueHeader } from "../StyledComponents/elements/Header";
@@ -26,13 +28,33 @@ export default function ProfilePage({ posts }) {
           {posts.map((post) => (
             <Submitted key={post.id} post={post} />
           ))}
+          <Link href="/api/auth/signout">
+            <a
+              onClick={(e) => {
+                e.preventDefault();
+                signOut({ callbackUrl: "/" });
+              }}
+            >
+              <LightSpan>로그아웃</LightSpan>
+            </a>
+          </Link>
         </ProfileBox>
       </>
     );
   } else {
     return (
       <>
-        <BlueHeader>로그인 해주세요</BlueHeader>
+        <ProfileBox>
+          <ProfileBox.Header>
+            <BlueHeader>로그인 해주세요</BlueHeader>
+          </ProfileBox.Header>
+          <ProfileBox.GreyBox>
+            <BoldSpan>사이트 언어 변경하기</BoldSpan>
+            <ProfileBox.Select>
+              <option>영어</option>
+            </ProfileBox.Select>
+          </ProfileBox.GreyBox>
+        </ProfileBox>
       </>
     );
   }

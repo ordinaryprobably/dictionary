@@ -9,20 +9,30 @@ import Flag from "../../StyledComponents/blocks/Flag";
 import Definition from "../../StyledComponents/blocks/Definition";
 import { UserIdContext, DispatchIdContext } from "../Contexts/userId.context";
 import { useSession } from "next-auth/react";
+import { useToggleSave } from "../Hooks/useToggleSave";
 
 export default function Word({ data }) {
-  const [likes, setLikes] = useState(0);
-  const [comments, setComments] = useState([]);
-  const userId = useContext(UserIdContext);
+  const userId =
+    useContext(UserIdContext) ||
+    (typeof window !== "undefined" && localStorage.getItem("userId"));
   const dispatchId = useContext(DispatchIdContext);
   const { data: session } = useSession();
+  const [comments, setComments] = useState([]);
+  const [save, toggleSave, setSave] = useToggleSave("/api/save", {
+    wordId: data.id,
+    userId,
+  });
+
+  const handleSave = async () => {
+    if (session) {
+      toggleSave();
+    }
+  };
 
   useEffect(() => {
     async function fetcher() {
-      const likes = await axios.post(`/api/count_likes`, { id: data.id });
       const comments = await axios.get(`/api/comments/${data.id}`);
 
-      setLikes(likes.data.data);
       setComments(comments.data.data);
     }
 
@@ -34,6 +44,7 @@ export default function Word({ data }) {
     }
 
     fetcher();
+    setSave(data.Save.find((save) => save.authorId === userId));
   }, []);
 
   return (
@@ -42,11 +53,11 @@ export default function Word({ data }) {
         <BlueHeader>{data.title}</BlueHeader>
         <Flag>
           <Flag.Box variant="like">
-            <Flag.Text variant="like">+{likes}</Flag.Text>
+            <Flag.Text variant="like">+{data._count.WordLike}</Flag.Text>
           </Flag.Box>
           <Flag.Box variant="comment">
             <Flag.Text variant="comment">
-              댓글 {comments.length || 0}개
+              댓글 {data._count.Comment || 0}개
             </Flag.Text>
           </Flag.Box>
         </Flag>
@@ -57,12 +68,18 @@ export default function Word({ data }) {
         <div>
           <Definition.Option>이 해석을 신고하기</Definition.Option>
           <Definition.Option>번역하기</Definition.Option>
-          <Definition.Option>저장하기</Definition.Option>
+          {!save ? (
+            <Definition.Option onClick={handleSave}>저장하기</Definition.Option>
+          ) : (
+            <Definition.Option onClick={handleSave}>
+              저장한 단어
+            </Definition.Option>
+          )}
         </div>
       </Definition>
       <Line />
       <div>
-        <Comments.Count>댓글 {comments.length || 0}개</Comments.Count>
+        <Comments.Count>댓글 {data._count.Comment || 0}개</Comments.Count>
         <Comments>
           {comments.map((comment) => (
             <Comment data={comment} key={comment.id} />

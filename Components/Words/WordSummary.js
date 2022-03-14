@@ -8,6 +8,7 @@ import Definition from "../../StyledComponents/blocks/Definition";
 import { useState, useContext, useEffect } from "react";
 import { UserIdContext } from "../Contexts/userId.context";
 import { useToggleLike } from "../Hooks/useToggleLike";
+import { useToggleSave } from "../Hooks/useToggleSave";
 
 export default function WordSummary({ word }) {
   const { data: session } = useSession();
@@ -23,6 +24,11 @@ export default function WordSummary({ word }) {
     },
     liked
   );
+  const [saved, setSaved] = useState(false);
+  const [save, toggleSave, setSave] = useToggleSave("/api/save", {
+    wordId: word.id,
+    userId,
+  });
 
   const handleLike = () => {
     if (session) {
@@ -36,6 +42,16 @@ export default function WordSummary({ word }) {
       setLiked(word.WordLike.find((like) => like.authorId == userId));
       setLike(word.WordLike.find((like) => like.authorId == userId));
     }
+  }, []);
+
+  const handleSave = async () => {
+    if (session) {
+      toggleSave();
+    }
+  };
+
+  useEffect(() => {
+    setSave(word.Save.find((save) => save.authorId === userId));
   }, []);
 
   return (
@@ -73,7 +89,15 @@ export default function WordSummary({ word }) {
             <div>
               <Definition.Option>이 해석을 신고하기</Definition.Option>
               <Definition.Option>번역하기</Definition.Option>
-              <Definition.Option>저장하기</Definition.Option>
+              {!save ? (
+                <Definition.Option onClick={handleSave}>
+                  저장하기
+                </Definition.Option>
+              ) : (
+                <Definition.Option onClick={handleSave}>
+                  저장한 단어
+                </Definition.Option>
+              )}
             </div>
           </WordCard.Meaning>
         </WordCard.Word>

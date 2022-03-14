@@ -7,6 +7,7 @@ import { Line } from "../../elements/Hr";
 const ProfileBox = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 150px;
 `;
 
 const Hr = styled(Line)`

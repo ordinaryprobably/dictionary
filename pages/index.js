@@ -62,6 +62,12 @@ export async function getServerSideProps(context) {
             wordId: true,
           },
         },
+        Save: {
+          select: {
+            authorId: true,
+            wordId: true,
+          },
+        },
       },
     });
 

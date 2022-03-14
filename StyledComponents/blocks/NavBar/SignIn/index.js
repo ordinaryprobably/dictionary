@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { LIGHT_BOX } from "../../../constants";
 
 export const SignInBox = styled.div`
   display: flex;
@@ -12,6 +13,10 @@ export const SignInBox = styled.div`
   background-color: white;
   border-radius: 12px;
   box-shadow: 0px 3px 3px 0px #f0f0f0;
+  cursor: pointer;
+  &:active {
+    background-color: ${LIGHT_BOX};
+  }
 `;
 
 export default SignInBox;
