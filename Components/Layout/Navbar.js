@@ -1,47 +1,47 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import classes from  '../../styles/Navbar.module.css';
 import SearchBar from "./SearchBar";
-import { signIn, signOut } from "next-auth/react";
+import SignIn from "./SignIn";
+import NavBarBox from "../../StyledComponents/blocks/NavBar";
+import Image from "next/image";
 
 export default function Navbar() {
   const { data: session, status } = useSession();
 
   return (
-    <div className={classes.wrap}>
+    <NavBarBox>
+      {!session && <SignIn />}
       <SearchBar />
-      <div className={classes.navbar}>
-        <div>
-          <Link href='/'>Home</Link>
-        </div>
-        <div>
-          <Link href='/submit'>Submit</Link>
-        </div>
-        {
-        session
-        ? (<div>
-            <Link href='/api/auth/signout'>
-              <a onClick={e => {
-                e.preventDefault();
-                signOut();
-              }}>Sign out</a>
-            </Link>
-          </div>)
-        : (<div>
-            <Link href='/api/auth/signin'>
-              <a onClick={e => {
-                e.preventDefault();
-                signIn('github', {
-                  callbackUrl: '/'
-                });
-              }}>Sign in</a>
-            </Link>
-          </div>)
-        }
-        <div>
-          <Link href='/'>Profile</Link>
-        </div>
-      </div>
-    </div>
-  )
+      <NavBarBox.NavBar>
+        <NavBarBox.Icon>
+          <Link href="/">
+            <div>
+              <Image src="/images/home-icon.svg" width={60} height={60} />
+            </div>
+          </Link>
+        </NavBarBox.Icon>
+        <NavBarBox.Icon>
+          <Link href="/submit">
+            <div>
+              <Image src="/images/submit-icon.svg" width={60} height={60} />
+            </div>
+          </Link>
+        </NavBarBox.Icon>
+        <NavBarBox.Icon>
+          <Link href="/saved">
+            <div>
+              <Image src="/images/saved-icon.svg" width={60} height={60} />
+            </div>
+          </Link>
+        </NavBarBox.Icon>
+        <NavBarBox.Icon>
+          <Link href="/profile">
+            <div>
+              <Image src="/images/profile-icon.svg" width={60} height={60} />
+            </div>
+          </Link>
+        </NavBarBox.Icon>
+      </NavBarBox.NavBar>
+    </NavBarBox>
+  );
 }

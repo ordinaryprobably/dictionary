@@ -54,11 +54,19 @@ export default function WordSummary({ word }) {
             <Link href={`/word/${word.title}/${word.id}`}>
               <WordCard.Title>{word.title}</WordCard.Title>
             </Link>
-            <Flag.Box variant="comment">
-              <Flag.Text variant="comment">
-                댓글 {word._count.Comment}개
-              </Flag.Text>
-            </Flag.Box>
+            {word._count.Comment > 0 ? (
+              <Flag.Shining variant="comment">
+                <Flag.Text variant="comment">
+                  댓글 {word._count.Comment}개
+                </Flag.Text>
+              </Flag.Shining>
+            ) : (
+              <Flag.Box variant="comment">
+                <Flag.Text variant="comment">
+                  댓글 {word._count.Comment}개
+                </Flag.Text>
+              </Flag.Box>
+            )}
           </WordCard.Header>
           <WordCard.Meaning>
             <Definition.Text>{word.meaning}</Definition.Text>

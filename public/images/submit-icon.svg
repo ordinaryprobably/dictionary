@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <g id="등재하기" transform="translate(881 -3355)">
+    <g id="그룹_95" data-name="그룹 95" transform="translate(-1136 2598)">
+      <g id="add" transform="translate(271.735 764.079)">
+        <path id="패스_37" data-name="패스 37" d="M65.981,120.353H64.046v3.87h-3.87v1.935h3.87v3.87h1.935v-3.87h3.87v-1.935h-3.87Z" transform="translate(-54.371 -108.744)" fill="#707070"/>
+        <path id="패스_38" data-name="패스 38" d="M24.186,0H8.707A2.906,2.906,0,0,0,5.8,2.9V5.8H2.9A2.906,2.906,0,0,0,0,8.707V24.186a2.905,2.905,0,0,0,2.9,2.9H18.381a2.905,2.905,0,0,0,2.9-2.9v-2.9h2.9a2.905,2.905,0,0,0,2.9-2.9V2.9a2.905,2.905,0,0,0-2.9-2.9ZM19.349,24.186a.968.968,0,0,1-.967.967H2.9a.968.968,0,0,1-.967-.967V8.707A.968.968,0,0,1,2.9,7.74H18.381a.968.968,0,0,1,.967.967Zm5.8-5.8a.968.968,0,0,1-.967.967h-2.9V8.707a2.905,2.905,0,0,0-2.9-2.9H7.739V2.9a.968.968,0,0,1,.967-.967H24.186a.968.968,0,0,1,.967.967V18.381Z" fill="#707070"/>
+      </g>
+      <text id="Submit" transform="translate(268 807)" fill="#707070" font-size="10" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">Submit</tspan></text>
+    </g>
+    <rect id="사각형_80" data-name="사각형 80" width="60" height="60" transform="translate(-881 3355)" fill="none"/>
+  </g>
+</svg>

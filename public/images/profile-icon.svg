@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <g id="프로필" transform="translate(776 -3353)" opacity="0.88">
+    <g id="그룹_94" data-name="그룹 94" transform="translate(-808 2599)">
+      <text id="Profile" transform="translate(47 805)" fill="#707070" font-size="10" font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="0">Profile</tspan></text>
+      <g id="User" transform="translate(54.616 760.457)">
+        <path id="패스_207" data-name="패스 207" d="M21.766,30.766H11.255A5.255,5.255,0,0,1,6,25.511V24.459A9.459,9.459,0,0,1,15.459,15h2.1a9.459,9.459,0,0,1,9.459,9.459v1.051a5.255,5.255,0,0,1-5.255,5.255ZM15.459,17.1A7.357,7.357,0,0,0,8.1,24.459v1.051a3.153,3.153,0,0,0,3.153,3.153H21.766a3.153,3.153,0,0,0,3.153-3.153V24.459A7.357,7.357,0,0,0,17.562,17.1Z" transform="translate(-9 -1.336)" fill="#707070"/>
+        <path id="패스_208" data-name="패스 208" d="M16.306,14.613a6.306,6.306,0,1,1,6.306-6.306,6.306,6.306,0,0,1-6.306,6.306Zm0-10.511a4.2,4.2,0,1,0,4.2,4.2A4.2,4.2,0,0,0,16.306,4.1Z" transform="translate(-8.796 -2)" fill="#707070"/>
+      </g>
+    </g>
+    <rect id="사각형_81" data-name="사각형 81" width="60" height="60" transform="translate(-776 3353)" fill="none"/>
+  </g>
+</svg>

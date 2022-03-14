@@ -11,29 +11,30 @@ export default async function handler(req, res) {
     const { wordId } = req.query;
     data = await prisma.comment.findMany({
       where: {
-        wordId: Number(wordId)
+        wordId: Number(wordId),
       },
       select: {
+        id: true,
         content: true,
         createdAt: true,
         author: {
           select: {
-            name: true
-          }
-        }
-      }
+            name: true,
+          },
+        },
+      },
     });
 
     result = true;
   } catch (error) {
     console.error(error);
-    
+
     result = false;
     data = [];
   }
 
   return res.status(200).json({
     success: result,
-    data: data
+    data: data,
   });
 }

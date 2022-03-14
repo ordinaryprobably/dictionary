@@ -65,7 +65,7 @@ export default function Word({ data }) {
         <Comments.Count>댓글 {comments.length || 0}개</Comments.Count>
         <Comments>
           {comments.map((comment) => (
-            <Comment data={comment} />
+            <Comment data={comment} key={comment.id} />
           ))}
         </Comments>
         <CommentForm wordId={data.id} />

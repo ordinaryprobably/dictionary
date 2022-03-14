@@ -1,29 +1,29 @@
 import { useRouter } from "next/router";
 import { useRef } from "react";
-import Search from "../../StyledComponents/blocks/SearchBar";
+import Search from "../../StyledComponents/blocks/NavBar/SearchBar";
 
 export default function SearchBar() {
   const formRef = useRef();
   const keywordRef = useRef();
   const router = useRouter();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const enteredKeyword = keywordRef.current.value;
 
     router.push(`/search/${enteredKeyword}`);
     formRef.current.reset();
-  }
-  
+  };
+
   return (
     <Search>
       <Search.Form ref={formRef} onSubmit={handleSubmit}>
-        <Search.Input 
-          type='text'
-          placeholder='검색어를 입력하세요.'
-          name='keyword'
-          autoComplete='off'
+        <Search.Input
+          type="text"
+          placeholder="검색어를 입력하세요."
+          name="keyword"
+          autoComplete="off"
           ref={keywordRef}
         />
         <Search.Button>
@@ -31,5 +31,5 @@ export default function SearchBar() {
         </Search.Button>
       </Search.Form>
     </Search>
-  )
+  );
 }
