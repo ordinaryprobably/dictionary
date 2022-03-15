@@ -10,9 +10,9 @@ export default function TodayWord() {
       <>
         <Link href={`/word/${data.title}/${data.id}`}>
           <TodayBox>
-            <TodayBox.Text marginBot={10}>인기 단어</TodayBox.Text>
+            <TodayBox.Text marginBot={10}>추천 단어</TodayBox.Text>
             <TodayBox.Word>
-              <TodayBox.Text>{!data ? "..." : data.title}</TodayBox.Text>
+              <TodayBox.Text>{data.title}</TodayBox.Text>
               <img src="/images/right-arrow.svg" />
             </TodayBox.Word>
           </TodayBox>
@@ -23,7 +23,7 @@ export default function TodayWord() {
     return (
       <>
         <TodayBox>
-          <TodayBox.Text marginBot={10}>오늘의 단어</TodayBox.Text>
+          <TodayBox.Text marginBot={10}>추천 단어</TodayBox.Text>
           <TodayBox.Word>
             <TodayBox.Text>loading...</TodayBox.Text>
             <img src="/images/right-arrow.svg" />

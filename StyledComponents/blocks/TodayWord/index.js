@@ -10,6 +10,7 @@ const WordBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   background-color: ${LIGHT_BOX};
   padding: 20px 30px 20px 20px;
   border-radius: 8px;
