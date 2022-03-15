@@ -13,34 +13,34 @@ export default function Navbar() {
       {!session && <SignIn />}
       <SearchBar />
       <NavBarBox.NavBar>
-        <NavBarBox.Icon>
+        <div>
           <Link href="/">
-            <div>
+            <NavBarBox.Icon>
               <Image src="/images/home-icon.svg" width={60} height={60} />
-            </div>
+            </NavBarBox.Icon>
           </Link>
-        </NavBarBox.Icon>
-        <NavBarBox.Icon>
+        </div>
+        <div>
           <Link href="/submit">
-            <div>
+            <NavBarBox.Icon>
               <Image src="/images/submit-icon.svg" width={60} height={60} />
-            </div>
+            </NavBarBox.Icon>
           </Link>
-        </NavBarBox.Icon>
-        <NavBarBox.Icon>
+        </div>
+        <div>
           <Link href="/saved">
-            <div>
+            <NavBarBox.Icon>
               <Image src="/images/saved-icon.svg" width={60} height={60} />
-            </div>
+            </NavBarBox.Icon>
           </Link>
-        </NavBarBox.Icon>
-        <NavBarBox.Icon>
+        </div>
+        <div>
           <Link href="/profile">
-            <div>
+            <NavBarBox.Icon>
               <Image src="/images/profile-icon.svg" width={60} height={60} />
-            </div>
+            </NavBarBox.Icon>
           </Link>
-        </NavBarBox.Icon>
+        </div>
       </NavBarBox.NavBar>
     </NavBarBox>
   );

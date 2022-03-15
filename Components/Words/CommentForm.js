@@ -1,58 +1,63 @@
 import { useRef, useContext } from "react";
-import { useSession } from 'next-auth/react';
+import { useSession } from "next-auth/react";
 import axios from "axios";
 import CommentFormBox from "../../StyledComponents/blocks/CommentForm";
-import { UserIdContext } from '../Contexts/userId.context';
+import { UserIdContext } from "../Contexts/userId.context";
 
 export default function CommentForm({ wordId }) {
   const { data: session, status } = useSession();
-  const userId = useContext(UserIdContext);
+  const userId =
+    useContext(UserIdContext) ||
+    (typeof window !== "undefined" && localStorage.getItem("userId"));
   const formRef = useRef();
   const commentRef = useRef();
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const enteredComment = commentRef.current.value;
-    const postComment = await axios.post('/api/post-comment', {
+    const postComment = await axios.post("/api/post-comment", {
       comment: enteredComment,
       userId: userId,
-      wordId: wordId
+      wordId: wordId,
     });
 
     formRef.current.reset();
-  }
+  };
 
-  if(!session) {
+  if (!session) {
     return (
       <CommentFormBox disabled={true}>
-        <CommentFormBox.Input 
-          type='text'
-          name='comment'
+        <CommentFormBox.Input
+          type="text"
+          name="comment"
           ref={commentRef}
-          autoComplete='off'
+          autoComplete="off"
           placeholder="댓글을 입력해 주세요."
           disabled
         />
-        <button disabled>완료</button>
+        <CommentFormBox.Btn disabled>
+          <img src="/images/chevron-up.svg" />
+        </CommentFormBox.Btn>
       </CommentFormBox>
-    )
+    );
   } else {
     return (
       <CommentFormBox>
         <form onSubmit={handleSubmit} ref={formRef}>
-          <CommentFormBox.Input 
-            type='text'
-            name='comment'
+          <CommentFormBox.Input
+            type="text"
+            name="comment"
             ref={commentRef}
-            autoComplete='off'
+            autoComplete="off"
             placeholder="댓글을 입력해 주세요."
             required
           />
-          <button>완료</button>
+          <CommentFormBox.Btn>
+            <img src="/images/chevron-up.svg" />
+          </CommentFormBox.Btn>
         </form>
       </CommentFormBox>
-    )
+    );
   }
-
 }

@@ -5,7 +5,7 @@ export default async (req, res) => {
 
   try {
     const { title, definition, userId } = req.body;
-    console.log(title, definition, userId);
+
     const submission = await prisma.word.create({
       data: {
         title: title,

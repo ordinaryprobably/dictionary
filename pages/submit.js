@@ -11,7 +11,9 @@ import { UserIdContext } from "../Components/Contexts/userId.context";
 export default function SubmitPage() {
   const [successMsg, setSuccessMsg] = useState(false);
   const { data: session } = useSession();
-  const userId = useContext(UserIdContext);
+  const userId =
+    useContext(UserIdContext) ||
+    (typeof window !== "undefined" && localStorage.getItem("userId"));
   const router = useRouter();
   const formRef = useRef();
   const titleRef = useRef();

@@ -23,7 +23,7 @@ export default function ProfilePage({ posts }) {
               <option>영어</option>
             </ProfileBox.Select>
           </ProfileBox.GreyBox>
-          <BoldSpan>등록한 단어</BoldSpan>
+          <BoldSpan>등록한 단어 ({posts.length} 개)</BoldSpan>
           <ProfileBox.Line />
           {posts.map((post) => (
             <Submitted key={post.id} post={post} />

@@ -8,22 +8,22 @@ export default async (req, res) => {
     const { wordId, userId } = req.body;
 
     const check = await prisma.$queryRaw`
-      select wordId 
-      from save 
+      select wordId
+      from wordLike
       where authorId = ${userId} and wordId = ${wordId};
     `;
 
     if (check.length === 0) {
       await prisma.$queryRaw`
-        insert into save (wordId, authorId)
+        insert into wordLike (wordId, authorId)
         values (${wordId}, ${userId});
       `;
 
       message = "Done";
-    } else if (check.length > 0) {
+    } else {
       await prisma.$queryRaw`
-        delete from save 
-        where wordId = ${wordId} and authorId = ${userId};
+        delete from wordLike
+        where wordId = ${wordId} and authorId = ${userId}
       `;
 
       message = "Undone";
@@ -36,7 +36,7 @@ export default async (req, res) => {
     result = false;
   }
 
-  res.status(200).json({
+  return res.status(200).json({
     success: result,
     message,
   });
