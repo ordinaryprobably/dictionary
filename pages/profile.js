@@ -1,4 +1,5 @@
 import { getSession, useSession } from "next-auth/react";
+import prisma from "../lib/prisma";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import Submitted from "../Components/Words/Submitted";

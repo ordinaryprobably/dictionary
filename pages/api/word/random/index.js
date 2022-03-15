@@ -9,10 +9,10 @@ export default async function hander(req, res) {
       select 
         id,
         title
-      from word 
+      from Word 
       join WordLike 
-        on word.id = WordLike.wordId 
-      group by word.id 
+        on Word.id = WordLike.wordId 
+      group by Word.id 
       order by rand() limit 1;
     `;
     const { title, id } = randomWord[0];
