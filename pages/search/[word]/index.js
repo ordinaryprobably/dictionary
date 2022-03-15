@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useRouter } from "next/router";
 import WordSummary from "../../../Components/Words/WordSummary";
 import { BlueHeader } from "../../../StyledComponents/elements/Header";
 import { Line } from "../../../StyledComponents/elements/Hr";
@@ -34,10 +35,24 @@ export async function getServerSideProps(context) {
 }
 
 export default function SearchResults({ searchResult }) {
+  const router = useRouter();
+
+  if (searchResult.length === 0) {
+    return (
+      <>
+        <BlueHeader marginBot={20}>
+          <LightBlueHeader>검색 결과: </LightBlueHeader>
+          없음
+        </BlueHeader>
+        <Line />
+      </>
+    );
+  }
   return (
     <>
       <BlueHeader marginBot={20}>
-        <LightBlueHeader>검색어:</LightBlueHeader>
+        <LightBlueHeader>검색어: </LightBlueHeader>
+        {router.query.word}
       </BlueHeader>
       <Line />
       {searchResult.map((word) => (

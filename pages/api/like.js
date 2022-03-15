@@ -9,20 +9,20 @@ export default async function handler(req, res) {
 
     const check = await prisma.$queryRaw`
       select wordId
-      from wordLike
+      from WordLike
       where authorId = ${userId} and wordId = ${wordId};
     `;
 
     if (check.length === 0) {
       await prisma.$queryRaw`
-        insert into wordLike (wordId, authorId)
+        insert into WordLike (wordId, authorId)
         values (${wordId}, ${userId});
       `;
 
       message = "Done";
     } else {
       await prisma.$queryRaw`
-        delete from wordLike
+        delete from WordLike
         where wordId = ${wordId} and authorId = ${userId}
       `;
 
