@@ -15,6 +15,6 @@ export const CommentInput = styled.input`
 `;
 
 export const CommentBtn = styled.button`
-  background-color: white;
+  background-color: transparent;
   border: none;
 `;

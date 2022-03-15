@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { WordCardHeader } from './Header';
-import { WordCardMeaning } from './Meaning';
-import { WordTitle } from './TItle';
-import { WordDiv } from './WordWrap';
+import styled from "styled-components";
+import { WordCardHeader } from "./Header";
+import { WordCardMeaning } from "./Meaning";
+import { WordTitle } from "./Title";
+import { WordDiv } from "./WordWrap";
 
 const WordCard = styled.div`
   display: flex;

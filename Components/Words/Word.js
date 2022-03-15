@@ -9,7 +9,7 @@ import Flag from "../../StyledComponents/blocks/Flag";
 import Definition from "../../StyledComponents/blocks/Definition";
 import { UserIdContext, DispatchIdContext } from "../Contexts/userId.context";
 import { useSession } from "next-auth/react";
-import { useToggleSave } from "../Hooks/useToggleSave";
+import { useToggle } from "../Hooks/useToggle";
 
 export default function Word({ data }) {
   const userId =
@@ -18,7 +18,7 @@ export default function Word({ data }) {
   const dispatchId = useContext(DispatchIdContext);
   const { data: session } = useSession();
   const [comments, setComments] = useState([]);
-  const [save, toggleSave, setSave] = useToggleSave("/api/save", {
+  const [save, toggleSave, setSave] = useToggle("/api/save", {
     wordId: data.id,
     userId,
   });

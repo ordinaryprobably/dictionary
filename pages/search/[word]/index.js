@@ -2,7 +2,7 @@ import axios from "axios";
 import WordSummary from "../../../Components/Words/WordSummary";
 import { BlueHeader } from "../../../StyledComponents/elements/Header";
 import { Line } from "../../../StyledComponents/elements/Hr";
-import { LightBlueHeader, Span } from "../../../StyledComponents/elements/Span";
+import { LightBlueHeader } from "../../../StyledComponents/elements/Span";
 
 export async function getServerSideProps(context) {
   let results;
@@ -31,7 +31,6 @@ export async function getServerSideProps(context) {
 }
 
 export default function SearchResults({ searchResult }) {
-  console.log(searchResult);
   return (
     <>
       <BlueHeader marginBot={20}>

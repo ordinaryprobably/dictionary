@@ -18,7 +18,7 @@ export default function Home({ posts, userId }) {
     });
     localStorage.setItem("userId", userId);
     setWords(posts);
-  }, []);
+  }, [dispatchId]);
 
   return (
     <>
