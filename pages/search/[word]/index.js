@@ -10,9 +10,12 @@ export async function getServerSideProps(context) {
   try {
     const { word } = context.query;
 
-    results = await axios.post("http://localhost:3000/api/search", {
-      keyword: word,
-    });
+    results = await axios.post(
+      "http://ordinary-probably-nextjs-prisma.vercel.app/api/search",
+      {
+        keyword: word,
+      }
+    );
   } catch (error) {
     console.error(error);
 
