@@ -64,6 +64,7 @@ export default function ProfilePage({ posts }) {
 export async function getServerSideProps(context) {
   const session = await getSession(context);
   let userId = null;
+  let posts = [];
 
   try {
     if (session) {
@@ -74,28 +75,31 @@ export async function getServerSideProps(context) {
       });
 
       userId = user.id;
-    }
 
-    const posts = await prisma.word.findMany({
-      select: {
-        id: true,
-        title: true,
-        createdAt: true,
-        _count: {
-          select: {
-            WordLike: true,
+      posts = await prisma.word.findMany({
+        where: {
+          authorId: userId,
+        },
+        select: {
+          id: true,
+          title: true,
+          createdAt: true,
+          _count: {
+            select: {
+              WordLike: true,
+            },
           },
         },
-      },
-    });
-
-    return {
-      props: {
-        posts: JSON.parse(JSON.stringify(posts)),
-        userId,
-      },
-    };
+      });
+    }
   } catch (error) {
     console.error(error);
   }
+
+  return {
+    props: {
+      posts: JSON.parse(JSON.stringify(posts)),
+      userId,
+    },
+  };
 }
