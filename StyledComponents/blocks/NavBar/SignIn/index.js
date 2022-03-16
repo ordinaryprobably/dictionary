@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { LIGHT_BOX } from "../../../constants";
 
-export const SignInBox = styled.div`
+const SignInBox = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   padding: 13px 30px 13px 30px;
   width: 70%;
@@ -18,5 +18,13 @@ export const SignInBox = styled.div`
     background-color: ${LIGHT_BOX};
   }
 `;
+
+const StyledImage = styled.img`
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+`;
+
+SignInBox.Icon = StyledImage;
 
 export default SignInBox;
