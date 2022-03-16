@@ -9,20 +9,20 @@ export default async function handler(req, res) {
 
     const check = await prisma.$queryRaw`
       select wordId 
-      from save 
+      from Save 
       where authorId = ${userId} and wordId = ${wordId};
     `;
 
     if (check.length === 0) {
       await prisma.$queryRaw`
-        insert into save (wordId, authorId)
+        insert into Save (wordId, authorId)
         values (${wordId}, ${userId});
       `;
 
       message = "Done";
     } else if (check.length > 0) {
       await prisma.$queryRaw`
-        delete from save 
+        delete from Save 
         where wordId = ${wordId} and authorId = ${userId};
       `;
 
